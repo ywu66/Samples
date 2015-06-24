@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Customers data</title>
+		<style>
+		body{
+			margin-top: 30px;
+		}
+        #container{
+            margin: auto;    
+        }
+		</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>		
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script type="text/javascript">
+        $(function () {
+                var processed_json = new Array();   
+                $.getJSON('visitdata/data.json', function(data) {
+                    // Populate series
+                    for (i = 0; i < data.length; i++){
+                        processed_json.push([data[i].key, data[i].value]);
+                    }
+                 
+                    // draw chart
+                    $('#container').highcharts({
+                    chart: {
+                        type: "column"
+                    },
+                    title: {
+                        text: "Customer data"
+                    },
+                    credits:{
+                        enabled: false
+                    },
+                    xAxis: {
+                        type: 'category',
+                        allowDecimals: false,
+                        title: {
+                            text: ""
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: "Visitors"
+                        }
+                    },
+                    series: [{
+	                    name: 'Visit Number',
+                        data: processed_json
+                    }]
+                }); 
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div id="container" style="height: 400px; width:600px"></div>
+    
+</body>
+</html>

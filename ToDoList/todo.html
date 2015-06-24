@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="js/todo.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/todo.css">
+</head>
+<body>
+<div ng-controller="TodoCtrl">
+    <h2>Total schedules: {{getTotalTodos()}}</h2>
+    <span>{{remaining()}} of {{todos.length}} remaining</span>
+    <ul class="unstyled">
+        <li ng-repeat="todo in todos">
+            <input type="checkbox" ng-model="todo.done">
+            <span class="done-{{todo.done}}">{{todo.text}}</span>
+        </li>
+    </ul>
+    <form name="todoForm" ng-submit="submitUser()" novalidate>
+        <input type="text" ng-model="TodoText" size="20" placeholder=" Add new task here" required>
+        <button class="btn btn-info" ng-click="addTodo()"><span class="glyphicon glyphicon-plus" ></span> Add</button>
+    </form>
+
+    <button class="btn btn-warning" ng-click="clearCompleted()"><span class="glyphicon glyphicon-trash"></span> Clear Completed</button>
+</div>
+</body>
+</html>

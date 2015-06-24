@@ -1,0 +1,11 @@
+
+.done-true {
+  text-decoration: line-through;
+  color: red;
+}
+body{
+position: absolute;
+left: 40%;    
+padding: 10px;
+background: #b8dbdd;
+}

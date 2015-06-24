@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Example</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <script>
+      var countryApp = angular.module('countryApp', []);
+      countryApp.controller('CountryCtrl'/*first argument*/, function ($scope, $http)/*second argument*/{
+        $http.get('countries.json').success(function(data) {
+          $scope.countries = data;
+        });
+          
+        $scope.sortField = 'population';
+        $scope.reverse = true;
+      });
+    </script>
+  </head>
+  <body ng-controller="CountryCtrl">
+    Search:<input ng-focus="focus()" ng-blur="blur()" ng-model="query" type="text"/>
+    <table>
+      <tr>
+          <th><a href="" ng-click="sortField = 'name'; reverse = !reverse">Country</a></th><!--If it's true before, then it will be false after toggle-->
+          <th><a href="" ng-click="sortField = 'population'; reverse = !reverse">Population</a></th>
+          <!--click handler directive for angular to execute expression, this assign two values on the scope -->
+      </tr>
+      <tr ng-repeat="country in countries | filter:query | orderBy: sortField: reverse">
+          <!--order by decreasing population(property)-->
+        <td>{{country.name}}</td>
+        <td>{{country.population}}</td>
+      </tr>
+    </table>
+  </body>
+</html>
